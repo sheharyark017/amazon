@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import Currency from "react-currency-formatter";
 
 const Product = ({ id, title, price, description, category, image }) => {
   const [rating, setRating] = useState(0);
@@ -44,9 +43,7 @@ const Product = ({ id, title, price, description, category, image }) => {
 
       <p className="text-xs my-2 line-clamp-2">{description}</p>
 
-      <div className="mb-5">
-        <Currency quantity={price} currency="GBP" />
-      </div>
+      <div className="mb-5">$ {price}</div>
 
       {hasPrime && (
         <div className="flex items-center space-x-2 -mt-5">
