@@ -1,10 +1,13 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { addToBasket } from "../slices/basketSlice";
 
 const Product = ({ id, title, price, description, category, image }) => {
   const [rating, setRating] = useState(0);
   const [hasPrime, setHasPrime] = useState(false);
+  const dispatch = useDispatch();
 
   const MAX_RATING = 5;
   const MIN_RAITNG = 1;
@@ -16,8 +19,20 @@ const Product = ({ id, title, price, description, category, image }) => {
     setHasPrime(Math.random() > 0.5);
   }, []);
 
-  console.log(hasPrime);
-
+  const addItemHandler = () => {
+    const product = {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      rating,
+      hasPrime,
+      quantity: 1,
+    };
+    dispatch(addToBasket(product));
+  };
   return (
     <div className="relative flex flex-col m-5 bg-white z-30 p-10">
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
@@ -57,7 +72,9 @@ const Product = ({ id, title, price, description, category, image }) => {
         </div>
       )}
 
-      <button className="mt-auto button">Add to Basket</button>
+      <button onClick={addItemHandler} className="mt-auto button">
+        Add to Basket
+      </button>
     </div>
   );
 };
